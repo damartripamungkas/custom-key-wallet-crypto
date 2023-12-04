@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="damartripamungkas" />
+    <meta
+      name="description"
+      content="A cryptocurrency wallet with customized private keys generated from words"
+    />
+    <title>Custom Key Wallet Crypto</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="./public/favicon/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./public/favicon/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="./public/favicon/favicon-16x16.png" />
+    <link rel="manifest" href="./public/favicon/site.webmanifest" />
+    <link rel="stylesheet" href="./public/css/style.css" />
+  </head>
+  <body>
+    <center>
+      <div class="container">
+        <div class="card">
+          <h1 class="mt-0">Custom Key Wallet Crypto</h1>
+          <p>author: damartripamungkas</p>
+          <p>donation address: 0x106afd8f747687876fa9b096ff20a78620621af3</p>
+          <a href="https://github.com/damartripamungkas/custom-key-wallet-crypto"
+            >https://github.com/damartripamungkas/custom-key-wallet-crypto</a
+          >
+        </div>
+
+        <div class="card">
+          <p class="mt-0">Select type wallet</p>
+          <select id="select-type-wallet" aria-label="select-type-wallet">
+            <option value="evm" selected>ethereum (EVM)</option>
+          </select>
+
+          <p class="pt-10">Number of iterations</p>
+          <input
+            id="input-number-iterations"
+            type="number"
+            value="1"
+            aria-label="input-number-iterations"
+          />
+
+          <p class="pt-10">Enter the words you want to use</p>
+          <textarea
+            class="text-area"
+            id="input-words-wallet"
+            aria-label="input-words-wallet"
+          ></textarea>
+
+          <p class="pt-10">Result privatekey and address wallet</p>
+          <textarea
+            class="w-full click-able"
+            id="result-private-key-wallet"
+            placeholder="privatekey wallet ..."
+            aria-label="result-private-key-wallet"
+            disabled
+          ></textarea>
+          <textarea
+            class="mt-2-5 w-full click-able"
+            id="result-address-wallet"
+            placeholder="address wallet ..."
+            aria-label="result-address-wallet"
+            disabled
+          ></textarea>
+        </div>
+      </div>
+    </center>
+
+    <script type="module">
+      import { ethers } from "./public/js/ethers.min.js";
+
+      const createWallet = {
+        evm: (str, iterations) => {
+          const utfBytes = ethers.toUtf8Bytes(str);
+          let pk = ethers.keccak256(utfBytes);
+
+          for (let index = 1; index < iterations; index++) {
+            pk = ethers.keccak256(pk);
+          }
+
+          const { address } = new ethers.Wallet(pk);
+          return { pk, address: address.toLowerCase() };
+        },
+      };
+
+      const state = {
+        selectTypeWallet: "",
+        inputNumberIterations: "",
+      };
+
+      const selectTypeWallet = document.getElementById("select-type-wallet");
+      const inputNumberIterations = document.getElementById("input-number-iterations");
+      const inputWordsWallet = document.getElementById("input-words-wallet");
+      const resultPrivateKeyWallet = document.getElementById("result-private-key-wallet");
+      const resultAddressWallet = document.getElementById("result-address-wallet");
+      const hashNow = () => {
+        const value = inputWordsWallet.value;
+        if (value.length == 0) {
+          resultPrivateKeyWallet.textContent = "";
+          resultAddressWallet.textContent = "";
+          return;
+        }
+
+        let numberIterations = state.inputNumberIterations;
+        if (numberIterations.length == 0 || parseInt(numberIterations) <= 0) {
+          numberIterations = 1;
+        }
+
+        const { pk, address } = createWallet[selectTypeWallet.value](value, numberIterations);
+        resultPrivateKeyWallet.textContent = pk;
+        resultAddressWallet.textContent = address;
+      };
+
+      selectTypeWallet.onchange = () => {
+        state.selectTypeWallet = selectTypeWallet.value;
+      };
+
+      inputNumberIterations.oninput = () => {
+        if (inputNumberIterations.value.length <= 0) {
+          resultPrivateKeyWallet.textContent = "";
+          resultAddressWallet.textContent = "";
+          return;
+        }
+
+        if (inputNumberIterations.value > 10) inputNumberIterations.value = 10;
+        if (inputNumberIterations.value <= 0) inputNumberIterations.value = 1;
+        state.inputNumberIterations = inputNumberIterations.value;
+        hashNow();
+      };
+
+      inputWordsWallet.oninput = hashNow;
+    </script>
+  </body>
+</html>
