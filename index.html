@@ -76,7 +76,7 @@
           let pk = ethers.keccak256(utfBytes);
 
           for (let index = 1; index < iterations; index++) {
-            pk = ethers.keccak256(pk);
+            pk = ethers.keccak256(ethers.toUtf8Bytes(pk));
           }
 
           const { address } = new ethers.Wallet(pk);
