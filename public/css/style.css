@@ -3,14 +3,6 @@ body {
   background-color: #f2f2f2;
 }
 
-.text-area {
-  width: 100%;
-  min-height: 3rem;
-  border: 1px solid #ccc;
-  font-size: large;
-  font-family: monospace;
-}
-
 @media screen and (max-width: 576px) {
   a {
     font-size: small;
@@ -21,8 +13,55 @@ body {
   }
 }
 
+textarea {
+  border-radius: 0.25rem;
+}
+
+input {
+  font-size: medium;
+  border-radius: 0.25rem;
+  min-height: 1.25rem;
+}
+
+select {
+  border-radius: 0.25rem;
+  font-size: medium;
+  width: 200px;
+}
+
+.btn-text-area {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.btn-text-area button {
+  border-radius: 0.3rem 0 0 0.3rem;
+  border: 1px solid #ccc;
+  flex: 1;
+}
+
+.btn-text-area input {
+  border-radius: 0 0.3rem 0.3rem 0;
+  flex: 2;
+  text-align: center;
+  border: 1px solid #ccc;
+  height: 2rem;
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-y: hidden;
+  /* padding-top: 12px; */
+}
+
+.text-area {
+  width: 100%;
+  min-height: 3rem;
+  border: 1px solid #ccc;
+  font-size: large;
+  font-family: monospace;
+}
+
 .container {
-  max-width: 64rem;
+  max-width: 60rem;
   margin: 0 auto;
 }
 
