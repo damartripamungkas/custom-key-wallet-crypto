@@ -28,108 +28,155 @@
         </div>
 
         <div class="card">
-          <p class="mt-0">Select type wallet</p>
-          <select id="select-type-wallet" aria-label="select-type-wallet">
-            <option value="evm" selected>ethereum (EVM)</option>
+          <p class="mt-0">Reinforcement Before iterations</p>
+          <select id="select-1" aria-label="select-1">
+            <option value="1" selected>
+              1. keccak256(sha512(sha512(per_words) * (words.length * 1.5122023)))
+            </option>
+            <option value="2">2. keccak256(sha512(sha512(sha512(words) * 1.5122023)))</option>
+            <option value="3">disable</option>
           </select>
 
           <p class="pt-10">Number of iterations</p>
-          <input
-            id="input-number-iterations"
-            type="number"
-            value="1"
-            aria-label="input-number-iterations"
-          />
+          <input id="input-1" type="number" value="3" aria-label="input-1" />
 
           <p class="pt-10">Enter the words you want to use</p>
-          <textarea
-            class="text-area"
-            id="input-words-wallet"
-            aria-label="input-words-wallet"
-          ></textarea>
+          <textarea class="text-area" id="input-2" aria-label="input-2"></textarea>
 
-          <p class="pt-10">Result privatekey and address wallet</p>
+          <p class="pt-10">Result privatekey with and without prefix 0x</p>
           <textarea
             class="w-full click-able"
-            id="result-private-key-wallet"
-            placeholder="privatekey wallet ..."
-            aria-label="result-private-key-wallet"
+            id="result-1"
+            placeholder="privatekey with prefix 0x ..."
+            aria-label="result-1"
             disabled
           ></textarea>
           <textarea
-            class="mt-2-5 w-full click-able"
-            id="result-address-wallet"
-            placeholder="address wallet ..."
-            aria-label="result-address-wallet"
+            class="w-full click-able mt-2-5"
+            id="result-2"
+            placeholder="privatekey ..."
+            aria-label="result-2"
             disabled
           ></textarea>
+
+          <div class="pt-10 btn-text-area">
+            <button>Address evm</button>
+            <input
+              class="click-able"
+              id="result-3"
+              placeholder="address wallet evm like ethereum, bsc, arbitrum or other ..."
+              aria-label="result-3"
+              disabled
+            />
+          </div>
         </div>
       </div>
     </center>
 
     <script type="module">
-      import { ethers } from "./public/js/ethers.min.js";
-
-      const createWallet = {
-        evm: (str, iterations) => {
-          const utfBytes = ethers.toUtf8Bytes(str);
-          let pk = ethers.keccak256(utfBytes);
-
-          for (let index = 1; index < iterations; index++) {
-            pk = ethers.keccak256(ethers.toUtf8Bytes(pk));
+      import { toUtf8Bytes, keccak256, sha512, Wallet } from "./public/js/ethers.min.js";
+      const hashWords = (str, iterations, numMethod) => {
+        let pk = str;
+        if (numMethod == "1") {
+          // 1. keccak256(sha512(sha512(per_words) * (words.length * 1.5122023)))
+          let pkN = "";
+          const pkL = pk.length;
+          for (let index = 0; index < pkL; index++) {
+            const h1 = sha512(toUtf8Bytes(pk[index]));
+            const m1 = h1 * (pk.length * 1.5122023);
+            const h2 = sha512(toUtf8Bytes(m1));
+            const h3 = keccak256(toUtf8Bytes(h2));
+            pkN += h3;
           }
 
-          const { address } = new ethers.Wallet(pk);
-          return { pk, address: address.toLowerCase() };
-        },
+          pk = pkN;
+        } else if (numMethod == "2") {
+          // 2. keccak256(sha512(sha512(sha512(words) * 1.5122023)))
+          const h1 = sha512(toUtf8Bytes(pk));
+          const m1 = h1 * 1.5122023;
+          const h2 = sha512(toUtf8Bytes(m1));
+          const h3 = sha512(toUtf8Bytes(h2));
+          const h4 = keccak256(toUtf8Bytes(h3));
+          console.log({ h1, h2, h3, h4 });
+
+          pk = h4;
+        }
+
+        // Hash interation results other than 1 will include the prefix "0x" to be hashed
+        const pkN = keccak256(toUtf8Bytes(pk));
+        pk = pkN;
+        for (let index = 1; index < iterations; index++) {
+          pk = keccak256(toUtf8Bytes(pk));
+        }
+
+        return pk;
       };
 
+      const createWallet = (str, iterations, numMethod) => {
+        const pk = hashWords(str, iterations, numMethod);
+        const { address } = new Wallet(pk);
+        return {
+          get evm() {
+            return { pk, address: address.toLowerCase() };
+          },
+          get nonEvm() {
+            return { pk: pk.slice(2), address: address.toLowerCase() };
+          },
+        };
+      };
+
+      const select1 = document.getElementById("select-1");
+      const input1 = document.getElementById("input-1");
+      const input2 = document.getElementById("input-2");
+      const result1 = document.getElementById("result-1");
+      const result2 = document.getElementById("result-2");
+      const result3 = document.getElementById("result-3");
       const state = {
-        selectTypeWallet: "",
-        inputNumberIterations: "",
+        numberIterations: parseInt(input1.value),
+        select1Value: select1.value,
       };
 
-      const selectTypeWallet = document.getElementById("select-type-wallet");
-      const inputNumberIterations = document.getElementById("input-number-iterations");
-      const inputWordsWallet = document.getElementById("input-words-wallet");
-      const resultPrivateKeyWallet = document.getElementById("result-private-key-wallet");
-      const resultAddressWallet = document.getElementById("result-address-wallet");
       const hashNow = () => {
-        const value = inputWordsWallet.value;
+        const value = input2.value;
         if (value.length == 0) {
-          resultPrivateKeyWallet.textContent = "";
-          resultAddressWallet.textContent = "";
+          result1.textContent = "";
+          result2.textContent = "";
+          result3.value = "";
           return;
         }
 
-        let numberIterations = state.inputNumberIterations;
+        const select1Value = state.select1Value;
+        let numberIterations = state.numberIterations;
         if (numberIterations.length == 0 || parseInt(numberIterations) <= 0) {
           numberIterations = 1;
         }
 
-        const { pk, address } = createWallet[selectTypeWallet.value](value, numberIterations);
-        resultPrivateKeyWallet.textContent = pk;
-        resultAddressWallet.textContent = address;
+        const { evm, nonEvm } = createWallet(value, numberIterations, select1Value);
+        result1.textContent = evm.pk;
+        result2.textContent = nonEvm.pk;
+        result3.value = evm.address;
       };
 
-      selectTypeWallet.onchange = () => {
-        state.selectTypeWallet = selectTypeWallet.value;
-      };
-
-      inputNumberIterations.oninput = () => {
-        if (inputNumberIterations.value.length <= 0) {
-          resultPrivateKeyWallet.textContent = "";
-          resultAddressWallet.textContent = "";
-          return;
-        }
-
-        if (inputNumberIterations.value > 10) inputNumberIterations.value = 10;
-        if (inputNumberIterations.value <= 0) inputNumberIterations.value = 1;
-        state.inputNumberIterations = inputNumberIterations.value;
+      select1.onchange = () => {
+        state.select1Value = select1.value;
         hashNow();
       };
 
-      inputWordsWallet.oninput = hashNow;
+      input1.oninput = () => {
+        if (input1.value.length <= 0) {
+          result1.textContent = "";
+          result2.textContent = "";
+          result3.value = "";
+          return;
+        }
+
+        if (input1.value > 100) input1.value = 100;
+        if (input1.value <= 0) input1.value = 1;
+        state.numberIterations = input1.value;
+        hashNow();
+      };
+
+      input2.oninput = hashNow;
     </script>
   </body>
 </html>
