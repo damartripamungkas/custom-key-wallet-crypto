@@ -26,7 +26,8 @@ This website assists users who struggle recalling the lengthy mnemonic phrases o
 
 ### 🪂 Features :
 
-- keccak256 hashing algorithm
+- keccak256 hashing algorithm for privatekey wallet.
+- reinforcement Before iterations: will perform hashing with the formula listed before iteration.
 - support iterations, Iteration refers to applying the hash function double based on the provided number. For instance, if the number given is 2, the process would be as follows: `hash(hash("your words"))` In other words, your words are hashed once, then the output is hashed again. So a higher count leads to greater computation worked into hashing the data.
 
 ### 👮 Security :
@@ -35,8 +36,8 @@ This website does not store any user input, wallet addresses, private keys or ot
 
 ### ⛷️ Support Wallet :
 
-- Wallet evm like ethereum, bsc, arbitrum or other
-- Wallet bitcoin (coming soon)
+- All wallet with EVM machine like ethereum, bsc, arbitrum and other
+- All wallet non EVM machine like bitcoin, dogecoin, dash and other
 
 ### 🥤 Donation For Support Me :
 
