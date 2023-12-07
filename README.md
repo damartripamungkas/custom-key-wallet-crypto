@@ -20,6 +20,10 @@
 
 ![Home](/screenshot/home.png)
 
+### ❔ Status :
+
+stable and usable
+
 ### 📖 Description :
 
 This website assists users who struggle recalling the lengthy mnemonic phrases or private keys for their cryptocurrency wallets. To address this issue, the site provides a method for users to generate customized mnemonic passphrase words. These customized word combinations serve as an easier alternative for users to remember. `Please refrain from using short or easily guessable words when creating your custom passphrases. For better security, construct elaborate multi-word phrases appended with random number sequences.`
