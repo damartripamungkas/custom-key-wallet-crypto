@@ -30,7 +30,9 @@
         <div class="card">
           <p class="mt-0">Reinforcement Before iterations</p>
           <select id="select-1" aria-label="select-1">
-            <option value="1" selected>1. keccak256(words) + sha512(words.slice(-2))</option>
+            <option value="1" selected>
+              1. keccak256(words) + sha512(words.slice(0, words.length / 2))
+            </option>
             <option value="2">disable</option>
           </select>
 
@@ -75,8 +77,8 @@
       const hashWords = (str, iterations, numMethod) => {
         let pk = str;
         if (numMethod == "1") {
-          // 1. keccak256(words) + sha512(words.slice(-2))
-          pk = keccak256(toUtf8Bytes(pk)) + sha512(toUtf8Bytes(pk.slice(-2)));
+          // 1. keccak256(words) + sha512(words.slice(0, words.length / 2))
+          pk = keccak256(toUtf8Bytes(pk)) + sha512(toUtf8Bytes(pk.slice(0, pk.length / 2)));
         }
 
         // Hash interation results other than 1 will include the prefix "0x" to be hashed
@@ -147,7 +149,7 @@
           return;
         }
 
-        if (input1.value > 100) input1.value = 100;
+        if (input1.value > 1000) input1.value = 1000;
         if (input1.value <= 0) input1.value = 1;
         state.numberIterations = input1.value;
         hashNow();
