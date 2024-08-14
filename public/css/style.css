@@ -53,6 +53,7 @@ input {
   outline-style: dashed;
   outline-width: 1px;
   padding: 0.25rem;
+  width: 100%;
 }
 
 button {
@@ -81,7 +82,8 @@ select {
 
 .btn-text-area button {
   flex: 1;
-  max-width: 20%;
+  min-width: 1rem;
+  max-width: 1rem;
 }
 
 .btn-text-area input {
@@ -119,6 +121,10 @@ select {
 
 .mt-2-5 {
   margin-top: 0.625rem;
+}
+
+.mt-2 {
+  margin-top: 0.6rem;
 }
 
 .mb-0-5 {

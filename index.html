@@ -20,9 +20,9 @@
       <div class="container">
         <div class="card">
           <h1 class="mt-0">Custom Key Wallet Crypto</h1>
-          <p>creator: damartripamungkas</p>
-          <p>donation address: 0x106afd8f747687876fa9b096ff20a78620621af3</p>
-          <a href="https://github.com/damartripamungkas/custom-key-wallet-crypto"
+          <p class="mb-0-5">creator: damartripamungkas</p>
+          <p class="mb-0-5">donation address: 0x106afd8f747687876fa9b096ff20a78620621af3</p>
+          <a class="mb-0-5" href="https://github.com/damartripamungkas/custom-key-wallet-crypto"
             >repository: https://github.com/damartripamungkas/custom-key-wallet-crypto</a
           >
         </div>
@@ -46,28 +46,19 @@
           <textarea
             class="w-full click-able"
             id="result-1"
-            placeholder="privatekey with prefix 0x.."
             aria-label="result-1"
             disabled
           ></textarea>
           <textarea
             class="w-full click-able mt-2-5"
             id="result-2"
-            placeholder="privatekey.."
             aria-label="result-2"
             disabled
           ></textarea>
 
-          <div class="pt-10 btn-text-area">
-            <input
-              class="click-able"
-              id="result-3"
-              placeholder="address wallet evm.."
-              aria-label="result-3"
-              disabled
-            />
-            <button id="copy-address-evm">Address evm</button>
-          </div>
+          <p class="pt-10 mb-0-5">Result address wallet</p>
+          <input class="click-able" id="result-3" aria-label="result-3" disabled />
+          <button id="copy-result-3" class="mt-2">Copy</button>
         </div>
       </div>
     </center>
@@ -157,8 +148,8 @@
 
       input2.oninput = hashNow;
 
-      const btnCopyEvm = document.getElementById("copy-address-evm");
-      btnCopyEvm.oninput = () => {
+      const btnCopyResult3 = document.getElementById("copy-result-3");
+      btnCopyResult3.oninput = () => {
         result3.select();
         result3.setSelectionRange(0, 99999); // For mobile devices
         navigator.clipboard.writeText(result3.value);
