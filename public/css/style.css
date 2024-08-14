@@ -1,32 +1,77 @@
+@font-face {
+  font-family: "SpaceMonoRegular";
+  src: url(../font/SpaceMono-Regular.ttf) format("truetype");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191,
+    U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "SpaceMonoRegular";
+  font-size: 0.95rem;
+  font-weight: 500;
   background-color: #f2f2f2;
 }
 
 @media screen and (max-width: 576px) {
   a {
-    font-size: small;
+    /* font-size: small; */
   }
 
   p {
-    font-size: small;
+    /* font-size: small; */
   }
 }
 
+p {
+  color: #252525;
+  margin: 0;
+  overflow-wrap: break-word;
+}
+
+a {
+  color: #252525;
+  margin: 0;
+  text-decoration: none;
+  overflow-wrap: break-word;
+}
+
 textarea {
-  border-radius: 0.25rem;
+  color: #252525;
+  outline-style: dashed;
+  outline-width: 1px;
+  padding: 0.25rem;
+  width: 100%;
+  font-size: large;
+  min-height: 3rem;
 }
 
 input {
+  color: #252525;
   font-size: medium;
-  border-radius: 0.25rem;
   min-height: 1.25rem;
+  outline-style: dashed;
+  outline-width: 1px;
+  padding: 0.25rem;
+}
+
+button {
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+  padding-left: 0.8rem;
+  padding-right: 0.8rem;
+  cursor: pointer;
+  outline-style: dashed;
+  outline-width: 1px;
+  background-color: 240 5.9% 10%;
 }
 
 select {
-  border-radius: 0.25rem;
   font-size: medium;
   width: 200px;
+  outline-style: dashed;
+  outline-width: 1px;
+  padding: 0.25rem;
 }
 
 .btn-text-area {
@@ -35,43 +80,33 @@ select {
 }
 
 .btn-text-area button {
-  border-radius: 0.3rem 0 0 0.3rem;
-  border: 1px solid #ccc;
   flex: 1;
+  max-width: 20%;
 }
 
 .btn-text-area input {
-  border-radius: 0 0.3rem 0.3rem 0;
   flex: 2;
   text-align: center;
   border: 1px solid #ccc;
-  height: 2rem;
+  height: 1.25rem;
+  min-width: 100%;
   white-space: normal;
   word-wrap: break-word;
   overflow-y: hidden;
-  /* padding-top: 12px; */
-}
-
-.text-area {
-  width: 100%;
-  min-height: 3rem;
-  border: 1px solid #ccc;
-  font-size: large;
-  font-family: monospace;
 }
 
 .container {
-  max-width: 60rem;
+  max-width: 40rem;
   margin: 0 auto;
 }
 
 .card {
-  border: 1px solid #ccc;
+  outline-style: solid;
+  outline-width: 1px;
   padding: 30px;
   margin-bottom: 15px;
-  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   background-color: #fff;
-  border-radius: 0.5rem;
+  text-align: left;
 }
 
 .pt-10 {
@@ -84,6 +119,10 @@ select {
 
 .mt-2-5 {
   margin-top: 0.625rem;
+}
+
+.mb-0-5 {
+  margin-bottom: 0.2rem;
 }
 
 .mt-0 {

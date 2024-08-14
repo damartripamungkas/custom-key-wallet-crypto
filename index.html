@@ -20,15 +20,15 @@
       <div class="container">
         <div class="card">
           <h1 class="mt-0">Custom Key Wallet Crypto</h1>
-          <p>author: damartripamungkas</p>
+          <p>creator: damartripamungkas</p>
           <p>donation address: 0x106afd8f747687876fa9b096ff20a78620621af3</p>
           <a href="https://github.com/damartripamungkas/custom-key-wallet-crypto"
-            >https://github.com/damartripamungkas/custom-key-wallet-crypto</a
+            >repository: https://github.com/damartripamungkas/custom-key-wallet-crypto</a
           >
         </div>
 
         <div class="card">
-          <p class="mt-0">Reinforcement Before iterations</p>
+          <p class="mt-0 mb-0-5">Reinforcement Before iterations</p>
           <select id="select-1" aria-label="select-1">
             <option value="1" selected>
               1. keccak256(words) + sha512(words.slice(0, words.length / 2))
@@ -36,37 +36,37 @@
             <option value="2">disable</option>
           </select>
 
-          <p class="pt-10">Number of iterations</p>
+          <p class="pt-10 mb-0-5">Number of iterations</p>
           <input id="input-1" type="number" value="3" aria-label="input-1" />
 
-          <p class="pt-10">Enter the words you want to use</p>
-          <textarea class="text-area" id="input-2" aria-label="input-2"></textarea>
+          <p class="pt-10 mb-0-5">Enter the words you want to use</p>
+          <textarea id="input-2" aria-label="input-2"></textarea>
 
-          <p class="pt-10">Result privatekey with and without prefix 0x</p>
+          <p class="pt-10 mb-0-5">Result privatekey with and without prefix 0x</p>
           <textarea
             class="w-full click-able"
             id="result-1"
-            placeholder="privatekey with prefix 0x ..."
+            placeholder="privatekey with prefix 0x.."
             aria-label="result-1"
             disabled
           ></textarea>
           <textarea
             class="w-full click-able mt-2-5"
             id="result-2"
-            placeholder="privatekey ..."
+            placeholder="privatekey.."
             aria-label="result-2"
             disabled
           ></textarea>
 
           <div class="pt-10 btn-text-area">
-            <button>Address evm</button>
             <input
               class="click-able"
               id="result-3"
-              placeholder="address wallet evm like ethereum, bsc, arbitrum or other ..."
+              placeholder="address wallet evm.."
               aria-label="result-3"
               disabled
             />
+            <button id="copy-address-evm">Address evm</button>
           </div>
         </div>
       </div>
@@ -156,6 +156,13 @@
       };
 
       input2.oninput = hashNow;
+
+      const btnCopyEvm = document.getElementById("copy-address-evm");
+      btnCopyEvm.oninput = () => {
+        result3.select();
+        result3.setSelectionRange(0, 99999); // For mobile devices
+        navigator.clipboard.writeText(result3.value);
+      };
     </script>
   </body>
 </html>
