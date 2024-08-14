@@ -20,9 +20,9 @@
 
 ![Home](/screenshot/home.png)
 
-### ❔ Status :
+### 🌐 Visit :
 
-stable and usable
+- https://damartripamungkas.github.io/custom-key-wallet-crypto
 
 ### 📖 Description :
 
@@ -41,12 +41,11 @@ This website does not store any user input, wallet addresses, private keys or ot
 ### ⛷️ Support Wallet :
 
 - All wallet with EVM machine like ethereum, bsc, arbitrum and other
-- All wallet non EVM machine like bitcoin, dogecoin, dash and other
 
 ### 🥤 Donation For Support Me :
 
-- (bsc, eth, other) = 0x106afd8f747687876fa9b096ff20a78620621af3
+- (evm, bsc, eth, other) = 0x106afd8f747687876fa9b096ff20a78620621af3
 
 ### 📝 License :
 
-Licensed under the [MIT License](./LICENSE).
+Licensed see [here](./LICENSE).
