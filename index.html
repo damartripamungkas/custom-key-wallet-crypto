@@ -16,52 +16,45 @@
     <link rel="stylesheet" href="./public/css/style.css" />
   </head>
   <body>
-    <center>
-      <div class="container">
-        <div class="card">
-          <h1 class="mt-0">Custom Key Wallet Crypto</h1>
-          <p class="mb-0-5">creator: damartripamungkas</p>
-          <p class="mb-0-5">donation address: 0x106afd8f747687876fa9b096ff20a78620621af3</p>
-          <a class="mb-0-5" href="https://github.com/damartripamungkas/custom-key-wallet-crypto"
-            >repository: https://github.com/damartripamungkas/custom-key-wallet-crypto</a
-          >
-        </div>
-
-        <div class="card">
-          <p class="mt-0 mb-0-5">Reinforcement Before iterations</p>
-          <select id="select-1" aria-label="select-1">
-            <option value="1" selected>
-              1. keccak256(words) + sha512(words.slice(0, words.length / 2))
-            </option>
-            <option value="2">disable</option>
-          </select>
-
-          <p class="pt-10 mb-0-5">Number of iterations</p>
-          <input id="input-1" type="number" value="3" aria-label="input-1" />
-
-          <p class="pt-10 mb-0-5">Enter the words you want to use</p>
-          <textarea id="input-2" aria-label="input-2"></textarea>
-
-          <p class="pt-10 mb-0-5">Result privatekey with and without prefix 0x</p>
-          <textarea
-            class="w-full click-able"
-            id="result-1"
-            aria-label="result-1"
-            disabled
-          ></textarea>
-          <textarea
-            class="w-full click-able mt-2-5"
-            id="result-2"
-            aria-label="result-2"
-            disabled
-          ></textarea>
-
-          <p class="pt-10 mb-0-5">Result address wallet</p>
-          <input class="click-able" id="result-3" aria-label="result-3" disabled />
-          <button id="copy-result-3" class="mt-2">Copy</button>
-        </div>
+    <div class="container">
+      <div class="card">
+        <h1 class="mt-0">Custom Key Wallet Crypto</h1>
+        <p class="mb-0-5">creator: damartripamungkas</p>
+        <p class="mb-0-5">donation address: 0x106afd8f747687876fa9b096ff20a78620621af3</p>
+        <a class="mb-0-5" href="https://github.com/damartripamungkas/custom-key-wallet-crypto"
+          >repository: https://github.com/damartripamungkas/custom-key-wallet-crypto</a
+        >
       </div>
-    </center>
+
+      <div class="card">
+        <p class="mt-0 mb-0-5">Reinforcement Before iterations</p>
+        <select id="select-1" aria-label="select-1">
+          <option value="1" selected>
+            1. keccak256(words) + sha512(words.slice(0, words.length / 2))
+          </option>
+          <option value="2">disable</option>
+        </select>
+
+        <p class="pt-10 mb-0-5">Number of iterations</p>
+        <input id="input-1" type="number" value="3" aria-label="input-1" />
+
+        <p class="pt-10 mb-0-5">Enter the words you want to use</p>
+        <textarea id="input-2" aria-label="input-2"></textarea>
+
+        <p class="pt-10 mb-0-5">Result privatekey with and without prefix 0x</p>
+        <textarea class="w-full click-able" id="result-1" aria-label="result-1" disabled></textarea>
+        <textarea
+          class="w-full click-able mt-2-5"
+          id="result-2"
+          aria-label="result-2"
+          disabled
+        ></textarea>
+
+        <p class="pt-10 mb-0-5">Result address wallet</p>
+        <input class="click-able" id="result-3" aria-label="result-3" disabled />
+        <!-- <button id="copy-result-3" class="mt-2">Copy</button> -->
+      </div>
+    </div>
 
     <script type="module">
       import { toUtf8Bytes, keccak256, sha512, Wallet } from "./public/js/ethers.min.js";
