@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 @font-face {
   font-family: "SpaceMonoRegular";
   src: url(../font/SpaceMono-Regular.ttf) format("truetype");
@@ -14,12 +18,8 @@ body {
 }
 
 @media screen and (max-width: 576px) {
-  a {
-    /* font-size: small; */
-  }
-
-  p {
-    /* font-size: small; */
+  .card {
+    padding: 20px !important;
   }
 }
 
@@ -41,9 +41,9 @@ textarea {
   outline-style: dashed;
   outline-width: 1px;
   padding: 0.25rem;
-  width: 100%;
   font-size: large;
   min-height: 3rem;
+  width: 100%;
 }
 
 input {
@@ -54,6 +54,7 @@ input {
   outline-width: 1px;
   padding: 0.25rem;
   width: 100%;
+  margin: 0;
 }
 
 button {
@@ -75,28 +76,6 @@ select {
   padding: 0.25rem;
 }
 
-.btn-text-area {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.btn-text-area button {
-  flex: 1;
-  min-width: 1rem;
-  max-width: 1rem;
-}
-
-.btn-text-area input {
-  flex: 2;
-  text-align: center;
-  border: 1px solid #ccc;
-  height: 1.25rem;
-  min-width: 100%;
-  white-space: normal;
-  word-wrap: break-word;
-  overflow-y: hidden;
-}
-
 .container {
   max-width: 40rem;
   margin: 0 auto;
@@ -109,6 +88,7 @@ select {
   margin-bottom: 15px;
   background-color: #fff;
   text-align: left;
+  box-sizing: border-box;
 }
 
 .pt-10 {
